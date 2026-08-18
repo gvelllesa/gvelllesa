@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>gvelllesa · starter</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>gvelllesa</h1>
+      <p class="subtitle">Node.js + Express starter running in a Cloud Agent environment.</p>
+
+      <form id="greet-form" autocomplete="off">
+        <label for="name">Your name</label>
+        <div class="row">
+          <input id="name" name="name" type="text" placeholder="world" />
+          <button type="submit">Greet</button>
+        </div>
+      </form>
+
+      <output id="result" class="result" aria-live="polite"></output>
+
+      <footer class="status">
+        <span id="health-dot" class="dot"></span>
+        <span id="health-text">checking server…</span>
+      </footer>
+    </main>
+
+    <script src="/main.js" type="module"></script>
+  </body>
+</html>
