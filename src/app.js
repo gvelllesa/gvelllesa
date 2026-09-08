@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  */
 export function createApp() {
   const app = express();
+  app.disable("x-powered-by");
   app.use(express.json());
 
   const startedAt = new Date();
@@ -25,7 +26,10 @@ export function createApp() {
 
   app.get("/api/greet", (req, res) => {
     const rawName = typeof req.query.name === "string" ? req.query.name : "";
-    const name = rawName.trim().slice(0, 80) || "world";
+    // Slice by code point rather than UTF-16 code unit: a plain slice(0, 80)
+    // can cut an astral character (emoji, rarer scripts) in half and leave a
+    // lone surrogate behind, which renders as U+FFFD.
+    const name = [...rawName.trim()].slice(0, 80).join("") || "world";
     res.json({ message: `Hello, ${name}!` });
   });
 
