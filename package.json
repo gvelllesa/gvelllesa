@@ -9,13 +9,17 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "node --test",
-    "lint": "node --check src/server.js && node --check src/app.js"
+    "test": "node --test test/*.test.js",
+    "lint": "node --check src/server.js && node --check src/app.js && node --check public/main.js",
+    "test:e2e": "node --test test/e2e/*.test.js"
   },
   "dependencies": {
     "express": "^4.21.2"
   },
   "overrides": {
     "qs": "^6.16.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
   }
 }

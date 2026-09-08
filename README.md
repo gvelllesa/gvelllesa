@@ -21,8 +21,20 @@ Then open http://localhost:3000 and use the greeting form.
 | --- | --- |
 | `npm start` | Run the server (`src/server.js`). |
 | `npm run dev` | Run the server with `node --watch` live reload. |
-| `npm test` | Run the test suite (`node --test`). |
+| `npm test` | Run the HTTP-level test suite. |
+| `npm run test:e2e` | Run the browser test suite (needs a Chromium build, see below). |
 | `npm run lint` | Syntax-check the source files. |
+
+`npm test` covers the API and static hosting over HTTP and needs nothing but
+Node. `npm run test:e2e` drives the landing page in a real browser, so it also
+needs the Chromium build the pinned Playwright expects:
+
+```bash
+npx playwright install chromium   # once, ~150 MB
+npm run test:e2e
+```
+
+CI runs both, plus `npm audit`, on every push and pull request to `main`.
 
 ## API
 
@@ -41,8 +53,9 @@ Then open http://localhost:3000 and use the greeting form.
 ## Project layout
 
 ```
-src/app.js        Express app factory (routes + static hosting)
-src/server.js     Server bootstrap (binds the port)
-public/           Static landing page (HTML/CSS/JS)
-test/app.test.js  HTTP-level tests using node:test
+src/app.js         Express app factory (routes + static hosting)
+src/server.js      Server bootstrap (binds the port)
+public/            Static landing page (HTML/CSS/JS)
+test/app.test.js   HTTP-level tests using node:test
+test/e2e/          Browser tests for public/main.js (node:test + Playwright)
 ```
